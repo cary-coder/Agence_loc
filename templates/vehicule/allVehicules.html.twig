@@ -1,0 +1,42 @@
+{% extends 'layout.html.twig' %}
+{% block title %} {{ parent() }} -vehicules {%
+endblock %} 
+
+{% block content %} 
+{#por chaque vehicule de mon tableau des vehicules je crée une ligne avec les infos de l'vehicule en question#}
+<div class="row mt-5 justify-content-center text-center">
+<h1> Liste des vehicules </h1>
+</div>
+<table class="table table-striped" border="2">
+      <thead>
+       <tr align="center">
+            <th scope="col">Id</th>
+            <th scope="col">titre</th>
+            <th scope="col">marque</th>
+            <th scope="col">model</th>
+            <th scope="col">description</th>
+            <th scope="col">photo</th>
+            <th scope="col">prixJournalier €</th>
+            <th scope="col">Date de Enregistrement</th>
+            <th scope="col">Action</th>
+       </tr>
+      </thead>
+{%for vehicule in vehicules %}
+      <tr align="center">
+            <td>{{vehicule.id}}</td>
+            <td>{{vehicule.titre}}</td>
+            <td>{{vehicule.marque}}</td>
+            <td>{{vehicule.model}}</td>
+            <td align="left">{{vehicule.description| slice(0,100)}}</td>
+            <td>{{vehicule.photo}}</td>
+            <td>{{vehicule.prixJournalier}}</td>
+            <td>{{vehicule.DateEnregistrement| date("d/m/Y \à H\\hi")}}</td>
+            <td>
+                  <a href="{{ path("app_vehicule", {id: vehicule.id})}}"><i class="fa fa-eye mx-1 text-success"></i></a>
+                  <a href="{{ path("vehicule_update", {id: vehicule.id})}}"><i class="fa fa-edit mx-1 text-success"></i></a>
+                  <a href="{{ path("vehicule_delete", {id: vehicule.id}) }}"><i class="fa-solid fa-trash-can text-danger" onclick="return confirm('Êtes vous sur de vouloir supprimer l\'vehicule?')"></i></a>
+            </td>
+      </tr>
+{% endfor %}
+
+{% endblock content %}

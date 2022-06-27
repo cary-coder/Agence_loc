@@ -1,0 +1,10 @@
+{% extends 'layout.html.twig' %}
+{% block title %} {{ parent() }} -formulaire vehicules {%
+endblock %} 
+
+{% block content %}
+<h1>Formulaire vehicule</h1>
+
+{{ form(formVehicule) }}
+
+{% endblock content %}
