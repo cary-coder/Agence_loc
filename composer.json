@@ -10,6 +10,7 @@
         "doctrine/doctrine-bundle": "^2.7",
         "doctrine/doctrine-migrations-bundle": "^3.2",
         "doctrine/orm": "^2.12",
+        "symfony/apache-pack": "^1.0",
         "symfony/asset": "6.1.*",
         "symfony/console": "6.1.*",
         "symfony/dotenv": "6.1.*",
@@ -73,7 +74,9 @@
         ],
         "post-update-cmd": [
             "@auto-scripts"
-        ]
+        ],
+        "compile":
+        ["symfony console doctrine:migrations:migrate"]
     },
     "conflict": {
         "symfony/symfony": "*"
