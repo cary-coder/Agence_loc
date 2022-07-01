@@ -4,58 +4,69 @@
 {{ parent() }} {# permet de garder le contenu du block parent situé dans base#}
 
 <header>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container-fluid">
-            <a class="navbar-brand" href="#">Logo</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                  <span class="navbar-toggler-icon"></span>
-            </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href=""> Accueil </a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="{{path("app_vehicules")}}"> Vehicules</a>
-                </li>
-                
-                <li class="nav-item">
-                    <a class="nav-link" href=""> Connexion </a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href=""> Inscription </a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href=""> Deconnexion </a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href=""> Profil </a>
-                </li>
-               
-                  <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
-                              data-bs-toggle="dropdown" aria-expanded="false">
-                              Admin
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                              <li><a class="dropdown-item" href="{{ path("vehicule_ajout") }}">Ajout vehicule</a></li>
-                              <li><a class="dropdown-item" href="">Ajout categorie</a></li>
-                              <li><a class="dropdown-item" href="">Liste categories</a></li>
-                              <li><a class="dropdown-item" href="{{ path("app_vehicules") }}">Liste vehicules</a></li>
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <div class="container-fluid">
+                  <a class="navbar-brand" href="#">Luxeloc</a>
+                  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+                  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul class="navbar-nav">
+                      <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{{ path("app_home")}}">Accueil</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="{{path("client_app_client")}}">Vehicules</a>
+                      </li>
+                      {% if is_granted('IS_AUTHENTICATED_FULLY')%}
+                      <li class="nav-item">
+                        <a class="nav-link" href="{{path('app_logout')}}">Deconnexion</a>
+                      </li>
+                      {% else%}
+                      <li class="nav-item">
+                        <a class="nav-link" href="{{path('app_login')}}">Connexion</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="{{path('app_register')}}">Inscription</a>
+                      </li>
+                    {% endif%}
+                      {#affichage SI L'UTILISATEUR EST AUTHENTIFIE ET A LE ROLE ADMIN#}
+                      {% if is_granted('IS_AUTHENTICATED_FULLY') and is_granted("ROLE_ADMIN") %}
+                      <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          Admin
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                          <li><a class="dropdown-item" href="{{ path("admin_vehicule_ajout") }}">Ajout vehicule</a></li>
+                          <li><a class="dropdown-item" href="{{ path("admin_app_vehicules") }}">Gestion de vehicules</a></li>
                         </ul>
-                  </div>
-            </ul>
-      </div>
-    </nav>
-</header>
-
+                      </li>
+                      {% endif %}
+                    </ul>
+                </div>
+                <p class="m-right text-white">Bonjour!</p> 
+                </div>
+              </nav>     
+    </header>
 <main class="container mb-5 pb-5">
+    {% for message in app.flashes('success') %}
+      <div class="alert alert-success text-center">
+        <p>{{ message }} </p>
+      </div>
+    {% endfor %}
+
+        {% for message in app.flashes('error') %}
+      <div class="alert alert-danger text-center">
+        <p>{{ message }} </p>
+      </div>
+    {% endfor %}
+
     {% block content %}
-    	{# ce block restera vide dans le layout, c'est là ou viendera s'inserer le contenu propre à chaque page #}
+    	{# ce block restera vide dans le layout, c'est là ou viendra s'inserer le contenu propre à chaque page #}
+    {% endblock %}
+
+    {% block final_js %}
+        	{# ce block restera vide dans le layout, c'est là ou viendra s'inserer le contenu propre à chaque page #}
     {% endblock %}
 </main>
 
@@ -63,7 +74,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-bottom">
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item"><a class="nav-link" href=""> - CGV</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{path('app_cgv')}}"> - CGV</a></li>
                 <li class="nav-item"><a class="nav-link" href=""> - Nous contacter </a> </li>
                 <li class="nav-item"><a class="nav-link" href=""> - Qui sommes nous</a>
                 </li>

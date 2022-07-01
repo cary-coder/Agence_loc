@@ -1,0 +1,25 @@
+{% extends 'layout.html.twig' %}
+{% block title %} {{ parent() }} -vehicules {%
+endblock %} 
+
+{% block content %} 
+{#por chaque vehicule de mon tableau des vehicules je crée une card avec les infos de l'vehicule en question#}
+
+<div class="row d-flex justify-content-center text-center">
+<h1> Liste des vehicules </h1>
+    {% for vehicule in vehicules %}
+        <div class="card" style="width: 18rem;">
+            <div class="card-body text-center">
+                <h5 class="card-title">{{vehicule.titre}}</h5>
+                <h6>{{vehicule.marque}}</h6>
+                <h6>{{vehicule.model}}</h6>             
+                <img class="card-img-top" src=" {{asset('photosVehicules/' ~ vehicule.photo)}} "
+                     alt=" {{vehicule.photo}} " alt="Card image cap">
+                <a href="" class="btn btn-info">Louer</a>
+                 <p class="card-text">{{vehicule.description | slice(0,50)}}...</p>
+                <a href="{{ path("app_vehicule", {id: vehicule.id})}}">lire plus</a>
+            </div>
+        </div>
+    {% endfor %}
+</div>         
+{% endblock content %} 

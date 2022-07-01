@@ -6,17 +6,15 @@ endblock %}
 {% block content %} 
 
 <div class="row mt-5 justify-content-left text-left">
-    <h3>{{vehicule.photo}}</h3>
-    <h3>id {{vehicule.id}}</h3>
+    <div><img class="img-thumbnail" src="{{asset('photosVehicules/' ~ vehicule.photo)}}" alt="{{vehicule.photo}}"></div>
     <h3>titre: {{vehicule.titre}}</h3>
-    <h4> date d'Enregistrement: {{vehicule.DateEnregistrement | date("d/m/Y \à H\\hi")}}</h4>
     {% if vehicule.DateEnregistrement is not null %}
             <h3>marque: {{vehicule.marque}}</h3>
             <h3>model: {{vehicule.model}}</h3>
-            <h3>Prix Journalier: {{vehicule.prixJournalier}}€</h3>
+            <h3>prix journalier: {{vehicule.prixJournalier}}€</h3>
     {% endif %}
     <h3>Description:</h3>
-    <p>{{vehicule.description}}</p>
+    <p> {{vehicule.description}}</p>
         </div>
 
  {% endblock content %}

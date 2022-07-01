@@ -7,6 +7,7 @@ use App\Form\VehiculeType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class VehiculeType extends AbstractType
@@ -18,7 +19,15 @@ class VehiculeType extends AbstractType
             ->add('marque')
             ->add('model')
             ->add('description')
-            ->add('photo')
+            ->add('imageForm', FileType::class, [
+                "mapped"=> false,
+                "required"=>false,
+                "attr"=>[
+                    'class'=> 'dropify',
+                    'id' => 'input-file-now-costom-1',
+                    'for'=> 'imput-flie-now-costom-1'
+                ]
+            ])
             ->add('prixJournalier')
             ->add('envoyer', SubmitType::class)
         ;

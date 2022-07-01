@@ -5,3 +5,9 @@ controllers:
 app_home:
   path: /
   controller: App\Controller\HomeController::index
+
+app_cgv:
+  path: /cgv
+  controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController
+  defaults: 
+    template: 'statique/cgv.html.twig'

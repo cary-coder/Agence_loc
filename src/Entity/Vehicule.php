@@ -25,7 +25,7 @@ class Vehicule
     #[ORM\Column(type: 'text')]
     private $description;
 
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[ORM\Column(type: 'string', length: 255)]
     private $photo;
 
     #[ORM\Column(type: 'integer')]
